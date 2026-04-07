@@ -1,0 +1,16 @@
+start: q0
+accept: ac
+reject: rj
+blank: _
+q0 a -> q1 X >
+q0 b -> rj b ^
+q0 _ -> rj _ <
+q1 a -> q1 a >
+q1 b -> q2 b <
+q1 _ -> q3 _ ^
+q2 a -> q2 a <
+q2 X -> q0 X >
+q2 _ -> rj _ >
+q3 a -> rj a <
+q3 b -> rj b >
+q3 _ -> rj _ ^

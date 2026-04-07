@@ -1,0 +1,7 @@
+start: st
+accept: ac
+reject: rj
+blank: _
+st 0 -> st 1 >
+st 1 -> st 0 >
+st _ -> ac _ ^
