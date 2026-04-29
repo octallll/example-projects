@@ -1,0 +1,58 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: scrapper
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scrapper
+    username: user
+    password: pass
+    driver-class-name: org.postgresql.Driver
+
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        highlight_sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/master.xml
+
+  kafka:
+    bootstrap-servers: 127.0.0.1:29092,127.0.0.1:39092,127.0.0.1:49092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+app:
+  stackoverflow:
+    key: ${STACKOVERFLOW_KEY} # Use env variable. DO NOT KEEP TOKEN HERE
+    access-token: ${STACKOVERFLOW_ACCESS_KEY} # Use env variable. DO NOT KEEP TOKEN HERE
+    url: "https://api.stackexchange.com/2.3"
+  github:
+    token: ${GITHUB_TOKEN} # Use env variable. DO NOT KEEP TOKEN HERE
+    url: "https://api.github.com"
+  bot-url:
+    http://localhost:8081
+  access-type:
+    sql
+  use-queue:
+    true
+  scheduler:
+    batch-size: 50
+    interval: 5000
+    check-interval: 3m
+  kafka:
+    topic: links_update
+    partitions: 3
+    replicas: 3
+  redis:
+    ttl: 10m
