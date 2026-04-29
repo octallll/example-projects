@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: bot
+  kafka:
+    bootstrap-servers: 127.0.0.1:29092,127.0.0.1:39092,127.0.0.1:49092
+    consumer:
+      group-id: "bot-updates-group"
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+app:
+  telegram:
+    url: https://api.telegram.org/bot
+    token: ${TELEGRAM_TOKEN} # Use env variable. DO NOT KEEP TOKEN HERE
+    update-listener-sleep: 1s
+    debug: false
+  scrapper-url:
+    http://localhost:8082
+  kafka:
+    topic: links_update
+    backoff-attempts: 3
