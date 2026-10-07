@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "PrioritizationLinkUpdateEvent",
+  "namespace": "backend.academy.linktracker.avro",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    { "name": "priority", "type": "string"},
+    {
+      "name": "tgChatIds",
+      "type": {
+        "type": "array",
+        "items": "long"
+      }
+    }
+  ]
+}

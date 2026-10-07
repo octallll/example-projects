@@ -1,0 +1,55 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: ai-agent
+
+  ai:
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY}
+
+  kafka:
+    bootstrap-servers: 127.0.0.1:29092,127.0.0.1:39092,127.0.0.1:49092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+
+    consumer:
+      group-id: "ai-agent-updates-group"
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+app:
+  kafka:
+    backoff-attempts: 3
+    scrapper-topic: raw-updates
+    bot-topic: processed-updates
+
+  filtering:
+    stop-words:
+      - spam
+      - ads
+      - promo
+    excluded-authors:
+      - bot-user
+
+    min-length: 20
+
+    summarization:
+      threshold: 500
+  prioritization:
+    high-keywords:
+      - critical
+      - urgent
+      - breaking
+      - security
+    low-keywords:
+      - minor
+      - typo
+      - chore
+      - docs
+    grouping:
+      window-ms: 30000
